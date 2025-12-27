@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faPaperPlane, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { ResultSnackbar } from '../../shared/components/result-snackbar/result-snackbar';
+import { ContactService } from '../../services/contact/contact';
 
 @Component({
   selector: 'app-contact',
@@ -36,6 +37,7 @@ export class ContactComponent {
 
   constructor(
     private fb: FormBuilder,
+    private contactService: ContactService,
     private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef
   ) {
@@ -44,16 +46,11 @@ export class ContactComponent {
       email: ['', [Validators.required, Validators.email]],
       subject: ['', [Validators.required]],
       message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(2000)]],
-      website: [''] // Spam prevention
+      website: ['']
     });
   }
 
   protected async onSubmit() {
-    // Spam prevention check
-    if (this.contactForm.get('website')?.value) {
-      return;
-    }
-
     if(!this.contactForm.valid){
       this.contactForm.markAllAsTouched();
       return
@@ -62,11 +59,14 @@ export class ContactComponent {
     this.loading = true;
     this.cdr.detectChanges();
 
-    try {
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      const success = Math.random() > 0.3;
-
-      if (success) {
+    this.contactService.sendContactEmail(
+      this.contactForm.value.name,
+      this.contactForm.value.email,
+      this.contactForm.value.subject,
+      this.contactForm.value.message,
+      this.contactForm.value.website
+    ).subscribe({
+      next: () => {
         this.snackBar.openFromComponent(ResultSnackbar, {
           data: {
             message: 'Message sent successfully!',
@@ -76,8 +76,12 @@ export class ContactComponent {
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
         });
+        
         this.formDirective.resetForm();
-      } else {
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
         this.snackBar.openFromComponent(ResultSnackbar, {
           data: {
             message: 'Failed to send message. Please try again.',
@@ -87,11 +91,12 @@ export class ContactComponent {
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
         });
+
+        console.error('Failed to send message:', err);
+        this.loading = false;
+        this.cdr.detectChanges();
       }
-    } finally {
-      this.loading = false;
-      this.cdr.detectChanges();
-    }
+    });
   }
 
   protected getErrorMessage(field: string): string {
