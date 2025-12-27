@@ -62,12 +62,14 @@ export class MinimaxComponent {
   protected componentWidth: number = 0;
   protected componentHeight: number = 0;
   protected nodePositions: Map<number, { x: number, y: number }> = new Map();
+  protected loading: boolean = true;
 
   constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.onResize();
     this.animateAlphaBetaPruning();
+    this.loading = false;
   }
 
   @HostListener('window:resize')
@@ -80,7 +82,7 @@ export class MinimaxComponent {
     this.calculateAllNodePositions();
   }
 
-  getEdges(): Edge[] {
+  protected getEdges(): Edge[] {
     return this.nodes
       .filter(node => node.parent !== undefined)
       .map(node => this.createEdge(node));
