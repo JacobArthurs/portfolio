@@ -2,6 +2,22 @@
 
 @include mat.core();
 
+$easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+@mixin transition {
+  transition: 
+    background-color 0.3s $easing,
+    color 0.3s $easing,
+    border-color 0.3s $easing;
+}
+
+@mixin hover-transition {
+  &:hover {
+    color: var(--mat-sys-primary);
+    @include transition();
+  }
+}
+
 /* Light theme */
 :root {
   @include mat.theme(
@@ -31,25 +47,10 @@
   );
 }
 
-$easing: cubic-bezier(0.4, 0, 0.2, 1);
-
-@mixin transition {
-  transition: 
-    background-color 0.3s $easing,
-    color 0.3s $easing,
-    border-color 0.3s $easing;
-}
-
-@mixin hover-transition {
-  &:hover {
-    color: var(--mat-sys-primary);
-    @include transition();
-  }
-}
-
-html [class*="mat-"],
-html .ng-fa-icon,
-html em {
+mat-sidenav-content,
+mat-sidenav-content [class*="mat-"],
+mat-sidenav-content .ng-fa-icon,
+mat-sidenav-content * {
   @include transition();
 }
 
@@ -64,11 +65,9 @@ body {
   font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
   line-height: 1.6;
   overflow-x: hidden;
-  @include transition();
 }
 
 .section-container {
-  //padding-bottom: 1.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
   max-width: 90rem;
@@ -76,19 +75,18 @@ body {
   margin-right: auto;
 
   @media (min-width: 768px) {
-    //padding-bottom: 2rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 
   @media (min-width: 1024px) {
-    //padding-bottom: 2.5rem;
     padding-left: 2rem;
     padding-right: 2rem;
   }
 }
 
-button[matIconButton] fa-icon {
+button[matIconButton] fa-icon,
+a[matIconButton] fa-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +114,6 @@ button[matIconButton] fa-icon {
 }
 
 h1, h2, h3 {
-  font-family: 'Inter', sans-serif;
   line-height: 1.2;
   font-weight: 700;
 }
@@ -132,11 +129,6 @@ h2 {
 h3 {
   font-size: clamp(1.5rem, 3vw, 2rem);
 }
-
-// p {
-//   color: var(--text-secondary);
-//   margin-bottom: 1rem;
-// }
 
 a {
   text-decoration: none;
