@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
+import { ReverseAnimatedText } from '../reverse-animated-text/reverse-animated-text';
 
 @Component({
   selector: 'app-experience',
@@ -9,7 +10,8 @@ import { MatChipsModule } from '@angular/material/chips';
   imports: [
     CommonModule,
     MatTabsModule,
-    MatChipsModule
+    MatChipsModule,
+    ReverseAnimatedText
   ],
   templateUrl: './background.html',
   styleUrls: ['./background.css']

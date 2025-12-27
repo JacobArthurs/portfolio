@@ -1,17 +1,22 @@
-<section id="background" class="section-container min-h-1/2 flex flex-col justify-center my-[20vh]">
-  <div class="mb-8">
-    <p>Background</p>
-    <h2>Where I learn and grow</h2>
+<section id="background">
+  <div class="section-container flex flex-col justify-center my-[20vh]">
+    <div class="mb-8">
+      <p>Background</p>
+      <h2>Where I learn and grow</h2>
+    </div>
+    <div>
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedIndexChange)="onTabChange($event)">
+        <mat-tab label="Experience">
+          <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: experiences }"></ng-container>
+        </mat-tab>
+        <mat-tab label="Education">
+          <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: education }"></ng-container>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
   </div>
-  <div>
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedIndexChange)="onTabChange($event)">
-      <mat-tab label="Experience">
-        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: experiences }"></ng-container>
-      </mat-tab>
-      <mat-tab label="Education">
-        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: education }"></ng-container>
-      </mat-tab>
-    </mat-tab-group>
+  <div class="bg-background!">
+    <app-reverse-animated-text></app-reverse-animated-text>
   </div>
 </section>
 
