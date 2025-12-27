@@ -1,0 +1,53 @@
+<div class="w-full h-full flex justify-center items-center">
+  <svg width="100%" height="100%" [style.max-height.px]="componentWidth" aria-label="Minimax Algorithm with Alpha-Beta Pruning Visualization">
+    <!-- Edges -->
+    <g class="edges">
+      @for (edge of getEdges(); track $index) {
+        <g>
+          <line
+            [attr.d]="edge.edgePath"
+            [attr.class]="'edge state-' + edge.state"
+            [attr.stroke-width]="edgeStroke"
+            [attr.x1]="edge.parentX"
+            [attr.y1]="edge.parentY"
+            [attr.x2]="edge.childX"
+            [attr.y2]="edge.childY"
+          />
+          @if (edge.isPrunedParentEdge) {
+            <line
+              class="edge state-pruned"
+              [attr.stroke-width]="edgeStroke"
+              [attr.x1]="edge.strikethroughX1"
+              [attr.y1]="edge.strikethroughY1"
+              [attr.x2]="edge.strikethroughX2"
+              [attr.y2]="edge.strikethroughY2"
+            />
+          }
+        </g>
+      }
+    </g>
+    
+    <!-- Nodes -->
+    <g class="nodes">
+      @for (node of nodes; track $index) {
+        <g [attr.transform]="'translate(' + this.nodePositions.get(node.id)!.x + ',' + this.nodePositions.get(node.id)!.y + ')'">
+          @if (node.type === 'min') {
+            <circle
+              [attr.r]="nodeRadius"
+              [attr.class]="'node state-' + node.state"
+            />
+          }
+          @else if (node.type === 'max') {
+            <rect
+              [attr.x]="-nodeRadius"
+              [attr.y]="-nodeRadius"
+              [attr.width]="nodeRadius * 2"
+              [attr.height]="nodeRadius * 2"
+              [attr.class]="'node state-' + node.state"
+            />
+          }
+        </g>
+      }
+    </g>
+  </svg>
+</div>

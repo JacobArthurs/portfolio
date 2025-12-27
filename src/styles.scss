@@ -1,0 +1,148 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+/* Light theme */
+:root {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: mat.$azure-palette,
+      ),
+      typography: (
+        brand-family: 'Inter, sans-serif',
+        plain-family: 'Inter, sans-serif',
+      ),
+      density: 0
+    )
+  );
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: dark,
+        primary: mat.$azure-palette,
+      )
+    )
+  );
+}
+
+$easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+@mixin transition {
+  transition: 
+    background-color 0.3s $easing,
+    color 0.3s $easing,
+    border-color 0.3s $easing;
+}
+
+@mixin hover-transition {
+  &:hover {
+    color: var(--mat-sys-primary);
+    @include transition();
+  }
+}
+
+html [class*="mat-"],
+html .ng-fa-icon,
+html em {
+  @include transition();
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-background);
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.6;
+  overflow-x: hidden;
+  @include transition();
+}
+
+.section-container {
+  //padding-bottom: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 90rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (min-width: 768px) {
+    //padding-bottom: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    //padding-bottom: 2.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+button[matIconButton] fa-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button {
+  backdrop-filter: blur(8px);
+}
+
+.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-right-style: hidden;
+}
+.mat-mdc-input-element {
+  box-shadow: none !important;
+}
+
+.mat-mdc-snackbar-surface {
+  background-color: var(--mat-sys-surface-container) !important;
+  color: var(--mat-sys-on-surface) !important;
+}
+
+h1, h2, h3 {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+// p {
+//   color: var(--text-secondary);
+//   margin-bottom: 1rem;
+// }
+
+a {
+  text-decoration: none;
+  @include hover-transition();
+}
+
+.hover-transition {
+  @include hover-transition();
+}

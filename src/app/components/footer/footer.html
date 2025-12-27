@@ -1,0 +1,49 @@
+<footer class="bg-background flex flex-col">
+  <mat-divider class="mt-[20vh]!"></mat-divider>
+  <div class="section-container w-full flex gap-6 flex-col">
+    <div class="flex items-center sm:justify-between pt-6 flex-col sm:flex-row gap-4">
+      <div class="flex flex-col">
+        <p class="text-lg font-bold">Jacob Arthurs</p>
+        <p class="text-base">Senior Full Stack Software Engineer</p>
+      </div>
+      <div class="flex gap-4">
+        <a
+          matIconButton
+          href="https://github.com/jacobarthurs"
+          target="_blank"
+          aria-label="Jacob Arthurs Github">
+          <fa-icon [icon]="faGithub" /> 
+        </a>
+        <a
+          matIconButton
+          href="https://linkedin.com/in/jacobarthurs"
+          target="_blank"
+          aria-label="Jacob Arthurs Linkedin">
+          <fa-icon [icon]="faLinkedin" /> 
+        </a>
+        <a 
+          matButton="filled"
+          href="https://docs.google.com/document/d/e/2PACX-1vSTyibSHoypc5Hwtl3z9CwR5w44PnzC7bgWCsFol_7zlQOP_LkuB6YxsVNByWeZV_Qt-HlwNRu5hWUQ/pub"
+          target="_blank"
+          aria-label="View Jacob Arthurs resume">
+          View Resume
+          <fa-icon [icon]="faFileLines" />
+        </a>
+      </div>
+    </div>
+    <mat-divider class="invisible sm:visible"></mat-divider>
+    <div class="flex justify-between items-center pb-6 flex-col sm:flex-row gap-4">
+      <p class="text-sm">© {{ currentYear }} Jacob Arthurs. All rights reserved.</p>
+      <a
+        matButton
+        href="https://github.com/jacobarthurs"
+        target="_blank"
+        aria-label="View JacobArthurs.com Github repo">
+        <div class="flex gap-2 text-on-background">
+          <fa-icon [icon]="faGithub" />
+          <p>View Source</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,51 @@
+<section id="background" class="section-container min-h-1/2 flex flex-col justify-center mt-[20vh]">
+  <div class="mb-8">
+    <p>Background</p>
+    <h2>Where I learn and grow</h2>
+  </div>
+  <div>
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedIndexChange)="onTabChange($event)">
+      <mat-tab label="Experience">
+        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: experiences }"></ng-container>
+      </mat-tab>
+      <mat-tab label="Education">
+        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: education }"></ng-container>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>
+
+<ng-template #itemTemplate let-items>
+  <div class="flex flex-col mt-6">
+    @for (item of items; track $index) {
+    <div class="flex gap-6 pb-8 experience-item" [style.animation-delay.ms]="$index * 100">
+      <div class="flex flex-col items-center">
+        <div class="w-16 h-16 shrink-0">
+          <img [src]="item.logo" [alt]="item.organization + ' logo'" class="w-full h-full object-cover rounded-lg" />
+        </div>
+        @if ($index !== items.length - 1) {
+          <div class="w-px bg-outline grow mt-4"></div>
+        }
+      </div>
+      
+      <div class="flex-1 pb-4">
+        <h3 class="text-xl font-semibold">
+          {{ item.subject }}
+        </h3>
+        <div class="mb-4">
+          <p class="font-medium">{{ item.organization }}</p>
+          <p class="text-sm text-secondary">
+            {{ item.startDate | date:'MMM yyyy' }} - {{ item.endDate ? (item.endDate | date:'MMM yyyy') : 'Present' }} 
+            ({{ calculateDuration(item.startDate, item.endDate) }})
+          </p>
+        </div>
+        <ul class="list-disc space-y-2 mb-6 pl-4">
+          @for (description of item.description; track $index) {
+            <li class="text-sm leading-relaxed">{{ description }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+    }
+  </div>
+</ng-template>

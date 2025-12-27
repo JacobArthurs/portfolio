@@ -1,0 +1,13 @@
+
+<div class="flex items-center gap-3 min-w-100">
+  <fa-icon [icon]="data.icon" class="text-3xl" />
+  <p class="flex-1">{{ data.message }}</p>
+  <button 
+    class="absolute top-0! right-0!"
+    matIconButton
+    (click)="snackBarRef.dismiss()"
+    aria-label="Close alert"
+    matTooltip="Close alert">
+    <fa-icon size="sm" class="scale-50" [icon]="faXmark" />
+  </button>
+</div>

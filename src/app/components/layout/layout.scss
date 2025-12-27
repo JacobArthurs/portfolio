@@ -1,0 +1,20 @@
+a {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 60%;
+    height: 2px;
+    background-color: var(--mat-sys-primary);
+    border-radius: 2px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &.active-item::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+}

@@ -1,0 +1,52 @@
+@mixin transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}
+
+.edge {
+  @include transition();
+}
+
+.node {
+  stroke: none !important;
+  @include transition();
+
+  &.state-exploring, &.state-optimal {
+    animation: bounce 0.3s ease-out;
+  }
+}
+
+.state-idle {
+  stroke: var(--mat-sys-outline);
+  fill: var(--mat-sys-outline);
+}
+
+.state-exploring {
+  stroke: var(--mat-sys-on-background);
+  fill: var(--mat-sys-on-background);
+}
+
+.state-pruned {
+  stroke: var(--mat-sys-outline-variant);
+  fill: var(--mat-sys-outline-variant);
+}
+
+.state-optimal {
+  stroke: var(--mat-sys-primary);
+  fill: var(--mat-sys-primary);
+  filter: drop-shadow(0 0 4px var(--mat-sys-primary));
+}

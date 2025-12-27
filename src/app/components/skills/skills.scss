@@ -1,0 +1,32 @@
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(from var(--mat-sys-on-background) r g b / 0.1),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}

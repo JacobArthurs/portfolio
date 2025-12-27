@@ -1,0 +1,60 @@
+<!-- Desktop navbar -->
+<div class="pointer-events-none w-full px-4 md:px-6 lg:px-8 max-w-360 mx-auto justify-between items-center fixed top-12 left-1/2 -translate-x-1/2 z-50 sm:flex hidden">
+  <a class="pointer-events-auto cursor-pointer w-14 h-14" matTooltip="Jacob Arthurs" (click)="scrollToSection('hero')">
+    <app-logo></app-logo>
+  </a>
+  <div class="pointer-events-auto flex md:gap-4 py-1 px-2 backdrop-blur-sm rounded-2xl shadow-md border border-outline">
+    @for (item of menuItems; track $index) {
+      <a 
+        class="cursor-pointer relative px-4 py-2 text-sm"
+        [class.active-item]="currentSection === item"
+        (click)="scrollToSection(item)">{{ item | titlecase }}
+      </a>
+    }
+  </div>
+  <button
+    matIconButton
+    class="pointer-events-auto scale-150"
+    (click)="toggleTheme()"
+    aria-label="Toggle theme"
+    [matTooltip]="currentTheme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'"
+    matTooltipPosition="below">
+    <fa-icon [icon]="currentTheme === 'light' ? faMoon : faSun"></fa-icon>
+  </button>
+</div>
+
+<!-- Mobile menu -->
+<mat-toolbar class="fixed top-0 left-0 z-100 flex justify-between px-4! md:px-6! lg:px-8! border-b border-(--mat-sys-outline) shadow-md bg-transparent! backdrop-blur-lg sm:hidden!">
+  <a class="cursor-pointer w-8 h-8" (click)="scrollToSection('hero')">
+    <app-logo></app-logo>
+  </a>
+  <div class="flex gap-4 items-center">
+    <button
+      matIconButton
+      (click)="toggleTheme()"
+      aria-label="Toggle theme">
+      <fa-icon [icon]="currentTheme === 'light' ? faMoon : faSun"></fa-icon>
+    </button>
+    <button
+      matIconButton
+      (click)="sideMenu.toggle()"
+      aria-label="Toggle menu">
+      <fa-icon [icon]="sideMenu.opened ? faTimes : faBars"></fa-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<mat-sidenav-container class="h-screen bg-secondary-container!">
+  <mat-sidenav #sideMenu mode="over" animationDuration="300ms" position="end" class="rounded-none! mt-14 sm:mt-16">
+    <mat-nav-list class="pt-0!">
+      @for (item of menuItems; track $index) {
+        <mat-list-item (click)="scrollToSection(item); sideMenu.close();" class="rounded-none!">
+          <span matListItemTitle>{{ item | titlecase }}</span>
+        </mat-list-item>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+  
+  <mat-sidenav-content class="overflow-x-hidden!">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

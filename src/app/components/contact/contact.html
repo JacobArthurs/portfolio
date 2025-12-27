@@ -1,0 +1,110 @@
+<section id="contact" class="bg-background flex flex-col">
+  <app-reverse-animated-text></app-reverse-animated-text>
+  <div class="w-full flex flex-1 flex-col section-container mt-[20vh]">
+    <div class="mb-16">
+      <p>Contact</p>
+      <h2>Let's work together</h2>
+    </div>
+    <div class="flex h-full items-center">
+      <mat-card class="max-w-2xl w-full">
+        <mat-card-content class="m-4">
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" #formDirective="ngForm" class="flex flex-col gap-4">
+            <!-- Name Field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Name</mat-label>
+              <input
+                matInput
+                formControlName="name"
+                placeholder="Your name">
+              @if (contactForm.get('name')?.invalid) {
+                <mat-error>
+                  {{ getErrorMessage('name') }}
+                </mat-error>
+              }
+            </mat-form-field>
+
+            <!-- Email Field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                type="email"
+                formControlName="email"
+                placeholder="your.email@example.com">
+              @if (contactForm.get('email')?.invalid) {
+                <mat-error>
+                  {{ getErrorMessage('email') }}
+                </mat-error>
+              }
+            </mat-form-field>
+
+            <!-- Subject Field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Subject</mat-label>
+              <mat-select formControlName="subject" placeholder="Select a subject">
+                <mat-option value="Job Opportunity">Job Opportunity</mat-option>
+                <mat-option value="Consulting/Freelance">Consulting/Freelance</mat-option>
+                <mat-option value="Collaboration">Collaboration</mat-option>
+                <mat-option value="General Question">General Question</mat-option>
+              </mat-select>
+              @if (contactForm.get('subject')?.invalid) {
+                <mat-error>
+                  {{ getErrorMessage('subject') }}
+                </mat-error>
+              }
+            </mat-form-field>
+
+            <!-- Message Field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Message</mat-label>
+              <textarea
+                matInput
+                formControlName="message"
+                placeholder="Tell me about your vision..."
+                rows="6"
+                maxlength="1000">
+              </textarea>
+              <mat-hint align="end">{{ contactForm.get('message')?.value?.length || 0 }} / 2000</mat-hint>
+              @if (contactForm.get('message')?.invalid) {
+                <mat-error>
+                  {{ getErrorMessage('message') }}
+                </mat-error>
+              }
+            </mat-form-field>
+
+            <!-- Website field (spam prevention) -->
+            <mat-form-field appearance="outline" class="absolute -left-2500 w-px h-px">
+              <mat-label>Website</mat-label>
+              <input
+                matInput
+                formControlName="website"
+                placeholder="yourwebsite.com">
+              @if (contactForm.get('website')?.invalid) {
+                <mat-error>
+                  {{ getErrorMessage('website') }}
+                </mat-error>
+              }
+            </mat-form-field>
+
+            <!-- Submit Button -->
+            <button
+              matButton="filled"
+              type="submit"
+              [disabled]="contactForm.invalid || loading"
+              class="w-full md:w-fit">
+              <div class="flex text-base gap-2">
+                @if (loading) {
+                  <p>Sending...</p>
+                  <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
+                } @else {
+                  <p>Send Message</p>
+                  <fa-icon [icon]="faPaperPlane" />
+                }
+              </div>
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>
