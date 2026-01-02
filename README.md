@@ -2,7 +2,7 @@
 
 ## Overview
 
-This portfolio serves as my comprehensive digital presence where I present my background in softwar engineering. The site demonstrates both my technical capabilities and commitment to clean, responsive, user-focused design.
+This portfolio serves as my comprehensive digital presence where I present my background in software engineering. The site demonstrates both my technical capabilities and commitment to clean, responsive, user-focused design.
 
 ## Technology Stack
 
